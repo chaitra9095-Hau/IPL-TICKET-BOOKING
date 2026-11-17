@@ -78,3 +78,141 @@ bookButtons.forEach(function(button) {
     });
 
 });
+
+
+/* =====================================
+   ACTIVITY 7: SELECTOR FORMS AND
+   LIVE INTERACTION USING JAVASCRIPT
+===================================== */
+
+
+/* =====================================
+   4. SELECT FORM CONTROLS
+===================================== */
+
+const matchSelect = document.getElementById("match");
+
+const standSelect = document.getElementById("stand");
+
+const quantityInput = document.getElementById("quantity");
+
+
+/* =====================================
+   5. SELECT BOOKING SUMMARY ELEMENTS
+===================================== */
+
+const summaryMatch = document.getElementById("summaryMatch");
+
+const summaryStand = document.getElementById("summaryStand");
+
+const summaryPrice = document.getElementById("summaryPrice");
+
+const summaryQuantity = document.getElementById("summaryQuantity");
+
+const summaryTotal = document.getElementById("summaryTotal");
+
+
+/* =====================================
+   6. TICKET PRICE DETAILS
+===================================== */
+
+const ticketPrices = {
+
+    "RCB vs CSK": {
+        "General": 500,
+        "Premium": 1000,
+        "VIP": 2000
+    },
+
+    "MI vs KKR": {
+        "General": 600,
+        "Premium": 1200,
+        "VIP": 2200
+    },
+
+    "SRH vs RCB": {
+        "General": 550,
+        "Premium": 1100,
+        "VIP": 2100
+    }
+
+};
+
+
+/* =====================================
+   7. UPDATE BOOKING SUMMARY
+===================================== */
+
+function updateSummary() {
+
+    // Read selected values
+    const selectedMatch = matchSelect.value;
+
+    const selectedStand = standSelect.value;
+
+    const quantity = Math.max(1, parseInt(quantityInput.value) || 1);
+
+    // Get ticket price
+    const price = ticketPrices[selectedMatch][selectedStand];
+
+    // Calculate total amount
+    const total = price * quantity;
+
+    // Update Booking Summary Card
+    summaryMatch.innerText = selectedMatch;
+
+    summaryStand.innerText = selectedStand;
+
+    summaryPrice.innerText = "₹" + price;
+
+    summaryQuantity.innerText = quantity;
+
+    summaryTotal.innerText = "₹" + total;
+
+    // Display notification
+    showToast("Booking Summary Updated!");
+
+}
+
+
+/* =====================================
+   8. CHANGE EVENT LISTENERS
+===================================== */
+
+matchSelect.addEventListener("change", updateSummary);
+
+standSelect.addEventListener("change", updateSummary);
+
+quantityInput.addEventListener("change", updateSummary);
+
+
+/* =====================================
+   9. DISPLAY INITIAL SUMMARY
+===================================== */
+
+(function() {
+
+    const selectedMatch = matchSelect.value;
+
+    const selectedStand = standSelect.value;
+
+    const quantity = Math.max(1, parseInt(quantityInput.value) || 1);
+
+    const price = ticketPrices[selectedMatch][selectedStand];
+
+    summaryMatch.innerText = selectedMatch;
+
+    summaryStand.innerText = selectedStand;
+
+    summaryPrice.innerText = "₹" + price;
+
+    summaryQuantity.innerText = quantity;
+
+    summaryTotal.innerText = "₹" + (price * quantity);
+
+})();
+matchSelect.addEventListener("change", updateSummary);
+
+standSelect.addEventListener("change", updateSummary);
+
+quantityInput.addEventListener("input", updateSummary);
