@@ -28,6 +28,7 @@ body {
     background: var(--background);
     color: var(--text);
     line-height: 1.6;
+    font-size: 17px;
 }
 
 section {
@@ -38,18 +39,23 @@ section {
 section h2 {
     text-align: center;
     color: var(--primary);
-    font-size: 30px;
+    font-size: 32px;
     margin-bottom: 30px;
 }
 
 section h3 {
     color: var(--primary);
+    font-size: 23px;
     margin: 20px 0 10px;
+}
+
+p, li {
+    font-size: 17px;
 }
 
 
 /* =====================================
-   3. HEADER AND NAVIGATION
+   3. HEADER AND NAVIGATION - FLEXBOX
 ===================================== */
 
 header {
@@ -65,16 +71,18 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 header h1 {
     color: var(--accent);
-    font-size: 24px;
+    font-size: 27px;
 }
 
 header nav ul {
     display: flex;
     flex-direction: row;
+    align-items: center;
     list-style: none;
     gap: 25px;
 }
@@ -83,11 +91,25 @@ header nav ul li a {
     color: var(--white);
     text-decoration: none;
     font-weight: bold;
+    font-size: 17px;
     transition: 0.3s;
 }
 
 header nav ul li a:hover {
     color: var(--accent);
+}
+
+/* Hamburger menu */
+
+.menu-toggle {
+    display: none;
+    background: var(--accent);
+    color: var(--primary);
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 
@@ -123,7 +145,7 @@ header nav ul li a:hover {
 
 #banner p {
     color: var(--white);
-    font-size: 18px;
+    font-size: 19px;
     margin-bottom: 25px;
 }
 
@@ -144,6 +166,7 @@ button,
     border: none;
     border-radius: 6px;
 
+    font-size: 17px;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
@@ -173,12 +196,12 @@ button:hover,
 }
 
 #about li {
-    padding: 4px;
+    padding: 5px;
 }
 
 
 /* =====================================
-   7. MATCH SCHEDULE TABLE
+   7. MATCH SCHEDULE - CSS GRID
 ===================================== */
 
 #matches {
@@ -186,63 +209,96 @@ button:hover,
 }
 
 #matches label {
+    display: block;
     font-weight: bold;
+    font-size: 17px;
 }
 
 #teamfilter {
     width: 100%;
+    max-width: 350px;
     padding: 12px;
     margin-top: 8px;
 
     border: 1px solid #cccccc;
     border-radius: 6px;
     background: var(--white);
+    font-size: 17px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+/* Grid and List Controls */
 
-    background: var(--white);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: hidden;
+.view-controls {
+    margin: 15px 0;
 }
 
-table th {
+.view-controls button {
+    margin-left: 0;
+}
+
+.active-view {
     background: var(--primary);
     color: var(--white);
-    padding: 15px;
-    text-align: center;
 }
 
-table td {
+/* Match Cards Grid */
+
+.match-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 20px;
+}
+
+.match-card {
     background: var(--white);
     color: var(--text);
-    padding: 13px;
-    text-align: center;
-    border-bottom: 1px solid #dddddd;
+
+    padding: 25px;
+
+    border-radius: 12px;
+    border-top: 5px solid var(--accent);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    transition: 0.3s;
 }
 
-table tr:nth-child(even) td {
-    background: #eef2f8;
-    color: var(--text);
+.match-card:hover {
+    transform: translateY(-5px);
 }
 
-table tr:hover td {
-    background: #fff1c2;
+.match-card h3 {
+    color: var(--primary);
+    font-size: 22px;
+    margin-top: 5px;
 }
 
-table td a {
-    color: #0755a5;
-    font-weight: bold;
-    text-decoration: none;
+.match-card p {
+    margin: 9px 0;
+    font-size: 17px;
 }
 
-table td a:hover {
-    color: #d18b00;
-    text-decoration: underline;
+.match-card .btn {
+    margin-left: 0;
+}
+
+/* List View */
+
+.match-container.list-view {
+    grid-template-columns: 1fr;
+}
+
+.match-container.list-view .match-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.match-container.list-view .match-card h3 {
+    width: 100%;
 }
 
 
@@ -271,12 +327,13 @@ table td a:hover {
     min-width: 280px;
 
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .booking-form label {
     display: block;
     color: var(--text);
+    font-size: 17px;
     font-weight: bold;
     margin-top: 12px;
 }
@@ -284,13 +341,13 @@ table td a:hover {
 .booking-form input,
 .booking-form select {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     margin-top: 5px;
 
     border: 1px solid #cccccc;
     border-radius: 6px;
 
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .booking-form input:focus,
@@ -319,7 +376,7 @@ table td a:hover {
     border-radius: 12px;
     border-top: 5px solid var(--accent);
 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .summary-card h3 {
@@ -329,6 +386,7 @@ table td a:hover {
 
 .summary-card p {
     color: var(--text);
+    font-size: 18px;
     margin: 12px 0;
 }
 
@@ -352,9 +410,34 @@ table td a:hover {
     color: #555555;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    background: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+    background: var(--primary);
+    color: var(--white);
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+table td {
+    background: var(--white);
+    color: var(--text);
+    padding: 13px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
 
 /* =====================================
-   11. GUIDELINES CARDS
+   11. GUIDELINES - CSS GRID
 ===================================== */
 
 #guidelines {
@@ -362,10 +445,9 @@ table td a:hover {
 }
 
 .guidelines-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .guidelines-container .card {
@@ -373,13 +455,11 @@ table td a:hover {
     color: var(--text);
 
     padding: 25px;
-    flex: 1;
-    min-width: 220px;
 
     border-radius: 12px;
     border-top: 5px solid var(--accent);
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     transition: 0.3s;
 }
@@ -390,11 +470,13 @@ table td a:hover {
 
 .guidelines-container .card h3 {
     color: var(--primary);
+    font-size: 21px;
     margin-bottom: 12px;
 }
 
 .guidelines-container .card p {
     color: #333333;
+    font-size: 17px;
 }
 
 
@@ -413,60 +495,12 @@ footer {
 footer p {
     color: var(--white);
     margin: 5px;
+    font-size: 16px;
 }
 
 
 /* =====================================
-   13. RESPONSIVE DESIGN
-===================================== */
-
-@media (max-width: 768px) {
-
-    header {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    header nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    header h1 {
-        font-size: 20px;
-    }
-
-    #banner h2 {
-        font-size: 28px;
-    }
-
-    section {
-        padding: 40px 5%;
-    }
-
-    .booking-container {
-        flex-direction: column;
-    }
-
-    .booking-form,
-    .summary-card {
-        width: 100%;
-    }
-
-    .guidelines-container {
-        flex-direction: column;
-    }
-
-    table {
-        display: block;
-        overflow-x: auto;
-    }
-}
-
-
-/* =====================================
-   14. TOAST NOTIFICATION
+   13. TOAST NOTIFICATION
 ===================================== */
 
 #toast {
@@ -485,28 +519,24 @@ footer p {
 
     position: fixed;
 
-    /* Center notification */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     z-index: 2000;
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Display Toast */
 #toast.show {
     visibility: visible;
     animation: fadeIn 0.4s;
 }
 
-/* Toast Animation */
 @keyframes fadeIn {
-
     from {
         opacity: 0;
         transform: translate(-50%, -40%);
@@ -516,6 +546,150 @@ footer p {
         opacity: 1;
         transform: translate(-50%, -50%);
     }
-
 }
 
+
+/* =====================================
+   14. TABLET RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 992px) {
+
+    .match-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .guidelines-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .booking-form {
+        width: 55%;
+    }
+
+    .summary-card {
+        width: 35%;
+    }
+}
+
+
+/* =====================================
+   15. MOBILE RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        width: 100%;
+    }
+
+    header nav.active {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 0;
+    }
+
+    #banner h2 {
+        font-size: 30px;
+    }
+
+    #banner p {
+        font-size: 17px;
+    }
+
+    section {
+        padding: 40px 5%;
+    }
+
+    .match-container,
+    .guidelines-container {
+        grid-template-columns: 1fr;
+    }
+
+    .match-container.list-view .match-card {
+        display: block;
+    }
+
+    .booking-container {
+        flex-direction: column;
+    }
+
+    .booking-form,
+    .summary-card {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    #toast {
+        min-width: 0;
+        width: 85%;
+        font-size: 17px;
+        padding: 18px;
+    }
+}
+
+
+/* =====================================
+   16. SMALL MOBILE SCREEN
+===================================== */
+
+@media (max-width: 480px) {
+
+    body {
+        font-size: 16px;
+    }
+
+    header h1 {
+        font-size: 19px;
+    }
+
+    section h2 {
+        font-size: 26px;
+    }
+
+    #banner h2 {
+        font-size: 26px;
+    }
+
+    .match-card,
+    .guidelines-container .card,
+    .booking-form,
+    .summary-card {
+        padding: 18px;
+    }
+
+    button,
+    .btn {
+        font-size: 16px;
+        padding: 11px 17px;
+    }
+
+    table th,
+    table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

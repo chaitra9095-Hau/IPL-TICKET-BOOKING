@@ -1,7 +1,7 @@
 
 /* =====================================
-   ACTIVITY 5: JAVASCRIPT BASICS
    IPL TICKET BOOKING WEBSITE
+   ACTIVITY 5 + ACTIVITY 7 + ACTIVITY 8
 ===================================== */
 
 
@@ -17,10 +17,8 @@ function showToast(message) {
 
     toast.classList.add("show");
 
-    // Clear previous timer
     clearTimeout(toast.timer);
 
-    // Hide notification after 3 seconds
     toast.timer = setTimeout(function() {
 
         toast.classList.remove("show");
@@ -31,40 +29,27 @@ function showToast(message) {
 
 
 /* =====================================
-   2. SELECT BOOK BUTTONS
+   ACTIVITY 5: SMOOTH SCROLL AND TOAST
 ===================================== */
 
 const bookButtons = document.querySelectorAll('a[href="#booking"]');
-
-
-/* =====================================
-   3. EVENT HANDLING AND SMOOTH SCROLL
-===================================== */
 
 bookButtons.forEach(function(button) {
 
     button.addEventListener("click", function(event) {
 
-        // Prevent default page jumping
         event.preventDefault();
 
-        // Get booking section
         const bookingForm = document.getElementById("booking");
 
-        // Smooth scrolling to booking form
         bookingForm.scrollIntoView({
-
             behavior: "smooth",
             block: "start"
-
         });
 
+        // Get match name from match card
+        const matchName = button.closest(".match-card")?.dataset.match;
 
-        // Get match name from table
-        const matchName = button.closest("tr")?.cells[1]?.textContent.trim();
-
-
-        // Display confirmation notification
         if (matchName) {
 
             showToast("Booking form opened for " + matchName);
@@ -81,14 +66,11 @@ bookButtons.forEach(function(button) {
 
 
 /* =====================================
-   ACTIVITY 7: SELECTOR FORMS AND
-   LIVE INTERACTION USING JAVASCRIPT
+   ACTIVITY 7: SELECTOR FORMS
 ===================================== */
 
 
-/* =====================================
-   4. SELECT FORM CONTROLS
-===================================== */
+/* 2. SELECT FORM CONTROLS */
 
 const matchSelect = document.getElementById("match");
 
@@ -97,9 +79,7 @@ const standSelect = document.getElementById("stand");
 const quantityInput = document.getElementById("quantity");
 
 
-/* =====================================
-   5. SELECT BOOKING SUMMARY ELEMENTS
-===================================== */
+/* 3. SELECT SUMMARY ELEMENTS */
 
 const summaryMatch = document.getElementById("summaryMatch");
 
@@ -112,9 +92,7 @@ const summaryQuantity = document.getElementById("summaryQuantity");
 const summaryTotal = document.getElementById("summaryTotal");
 
 
-/* =====================================
-   6. TICKET PRICE DETAILS
-===================================== */
+/* 4. TICKET PRICE DETAILS */
 
 const ticketPrices = {
 
@@ -139,26 +117,23 @@ const ticketPrices = {
 };
 
 
-/* =====================================
-   7. UPDATE BOOKING SUMMARY
-===================================== */
+/* 5. UPDATE BOOKING SUMMARY */
 
-function updateSummary() {
+function updateSummary(showNotification = true) {
 
-    // Read selected values
     const selectedMatch = matchSelect.value;
 
     const selectedStand = standSelect.value;
 
-    const quantity = Math.max(1, parseInt(quantityInput.value) || 1);
+    const quantity = Math.max(
+        1,
+        parseInt(quantityInput.value) || 1
+    );
 
-    // Get ticket price
     const price = ticketPrices[selectedMatch][selectedStand];
 
-    // Calculate total amount
     const total = price * quantity;
 
-    // Update Booking Summary Card
     summaryMatch.innerText = selectedMatch;
 
     summaryStand.innerText = selectedStand;
@@ -169,50 +144,153 @@ function updateSummary() {
 
     summaryTotal.innerText = "₹" + total;
 
-    // Display notification
-    showToast("Booking Summary Updated!");
+    if (showNotification) {
+
+        showToast("Booking Summary Updated!");
+
+    }
 
 }
 
 
+/* 6. EVENT LISTENERS */
+
+matchSelect.addEventListener("change", function() {
+    updateSummary(true);
+});
+
+standSelect.addEventListener("change", function() {
+    updateSummary(true);
+});
+
+// Update quantity immediately while typing
+quantityInput.addEventListener("input", function() {
+    updateSummary(false);
+});
+
+quantityInput.addEventListener("change", function() {
+    updateSummary(true);
+});
+
+
+/* 7. DISPLAY INITIAL SUMMARY */
+
+updateSummary(false);
+
+
 /* =====================================
-   8. CHANGE EVENT LISTENERS
+   ACTIVITY 8: TEAM FILTER
 ===================================== */
 
-matchSelect.addEventListener("change", updateSummary);
+const teamFilter = document.getElementById("teamfilter");
 
-standSelect.addEventListener("change", updateSummary);
+const matchCards = document.querySelectorAll(".match-card");
 
-quantityInput.addEventListener("change", updateSummary);
+
+teamFilter.addEventListener("change", function() {
+
+    const selectedTeam = teamFilter.value;
+
+    matchCards.forEach(function(card) {
+
+        const teams = card.dataset.teams.split(" ");
+
+        if (selectedTeam === "all" || teams.includes(selectedTeam)) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+    showToast("Team filter applied!");
+
+});
 
 
 /* =====================================
-   9. DISPLAY INITIAL SUMMARY
+   ACTIVITY 8: GRID AND LIST VIEW
 ===================================== */
 
-(function() {
+const matchContainer = document.getElementById("matchContainer");
 
-    const selectedMatch = matchSelect.value;
+const gridButton = document.getElementById("gridView");
 
-    const selectedStand = standSelect.value;
+const listButton = document.getElementById("listView");
 
-    const quantity = Math.max(1, parseInt(quantityInput.value) || 1);
 
-    const price = ticketPrices[selectedMatch][selectedStand];
+/* GRID VIEW */
 
-    summaryMatch.innerText = selectedMatch;
+gridButton.addEventListener("click", function() {
 
-    summaryStand.innerText = selectedStand;
+    matchContainer.classList.remove("list-view");
 
-    summaryPrice.innerText = "₹" + price;
+    gridButton.classList.add("active-view");
 
-    summaryQuantity.innerText = quantity;
+    listButton.classList.remove("active-view");
 
-    summaryTotal.innerText = "₹" + (price * quantity);
+    showToast("Grid View Selected!");
 
-})();
-matchSelect.addEventListener("change", updateSummary);
+});
 
-standSelect.addEventListener("change", updateSummary);
 
-quantityInput.addEventListener("input", updateSummary);
+/* LIST VIEW */
+
+listButton.addEventListener("click", function() {
+
+    matchContainer.classList.add("list-view");
+
+    listButton.classList.add("active-view");
+
+    gridButton.classList.remove("active-view");
+
+    showToast("List View Selected!");
+
+});
+
+
+/* =====================================
+   ACTIVITY 8: MOBILE HAMBURGER MENU
+===================================== */
+
+const menuToggle = document.getElementById("menuToggle");
+
+const mainNav = document.getElementById("mainNav");
+
+
+/* OPEN AND CLOSE MENU */
+
+menuToggle.addEventListener("click", function() {
+
+    mainNav.classList.toggle("active");
+
+    const isOpen = mainNav.classList.contains("active");
+
+    menuToggle.setAttribute("aria-expanded", isOpen);
+
+    menuToggle.innerText = isOpen ? "✕" : "☰";
+
+});
+
+
+/* CLOSE MENU AFTER CLICKING A NAVIGATION LINK */
+
+const navLinks = mainNav.querySelectorAll("a");
+
+navLinks.forEach(function(link) {
+
+    link.addEventListener("click", function() {
+
+        mainNav.classList.remove("active");
+
+        menuToggle.setAttribute("aria-expanded", "false");
+
+        menuToggle.innerText = "☰";
+
+    });
+
+});
