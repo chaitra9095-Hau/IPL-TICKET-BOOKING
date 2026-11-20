@@ -1,0 +1,15 @@
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6fa;
+  color: #222222;
+}
+
+button,
+select {
+  font-family: inherit;
+}

@@ -1,0 +1,158 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  background-color: #07152e;
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  font-size: 35px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  color: #f5b820;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.brand-text small {
+  color: white;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #f5b820;
+}
+
+.hero {
+  background-color: #07152e;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  color: #f5b820;
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.hero-btn {
+  display: inline-block;
+  background-color: #f5b820;
+  color: #07152e;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.matches-section {
+  padding: 45px 6%;
+  text-align: center;
+  background-color: #f4f6fa;
+}
+
+.matches-section h2 {
+  color: #07152e;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.matches-section select {
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.matches-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 22px;
+}
+
+.match-card {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.match-card h3 {
+  color: #07152e;
+  margin-bottom: 18px;
+}
+
+.match-card p {
+  margin: 12px 0;
+  color: #444;
+}
+
+.match-card button {
+  background-color: #f5b820;
+  color: #07152e;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+footer {
+  background-color: #07152e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+}
